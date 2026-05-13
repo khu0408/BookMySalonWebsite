@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<title>dessange paris beauty salon</title>
+
+<link rel="stylesheet" href="details.css">
+</head>
+
+<body>
+
+<header>
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlGDEfegD_9USwsEDb31kH34MMkgIOMdnULA&s" alt="Salon Logo" class="salon-logo">
+
+<h1>dessange paris beauty salon</h1>
+
+</header>
+
+<main>
+
+<section class="container">
+
+<p><strong>Location:</strong> Dhahran - Riyadh Boulevard</p>
+
+<p><strong>Price:</strong> begin at 280</p>
+
+<p><strong>Rating:</strong> (5/4.4)</p>
+
+<h2>Choose Services</h2>
+
+<form>
+
+<section class="service-option">
+
+<input type="checkbox" id="service1" value="Eyelash & Brows">
+
+<label for="service1">Eyelash & Brows</label>
+
+</section>
+
+<section class="service-option">
+
+<input type="checkbox" id="service2" value="Nail Care">
+
+<label for="service2">Nail Care</label>
+
+</section>
+
+<section class="service-option">
+
+<input type="checkbox" id="service3" value="Hairstyle">
+
+<label for="service3">Hairstyle</label>
+
+</section>
+
+<section class="service-option">
+
+<input type="checkbox" id="service4" value="Waxing & Threading">
+
+<label for="service4">Waxing & Threading</label>
+
+</section>
+
+<p id="bookingMsg"></p>
+
+<button type="button" id="bookBtn" onclick="bookNow()">
+Book Now
+</button>
+
+<button type="button" onclick="location.href='home.html#salonsSection'">
+Back
+</button>
+
+</form>
+
+</section>
+
+</main>
+
+<footer>
+
+<section class="contact">
+
+<p>
+Contact us on WhatsApp:
+<a href="https://wa.me/966580417226" target="_blank">
++966 58 041 7226
+</a>
+</p>
+
+</section>
+
+<section class="copyright">
+
+<p>&copy; 2026 BookMySalon. All rights reserved.</p>
+
+</section>
+
+</footer>
+
+<script>
+function bookNow(){
+
+let loggedInUser=localStorage.getItem("loggedInUser");
+
+if(loggedInUser===null){
+
+let goLogin=confirm("Please login first to book an appointment.\nDo you want to go to the login page?");
+
+if(goLogin===true){
+location.href="log.html";
+}
+
+return;
+}
+
+let salonName=document.getElementsByTagName("h1")[0].innerText;
+
+let checkboxes=document.getElementsByTagName("input");
+
+let selectedServices="";
+
+for(let i=0;i<checkboxes.length;i++){
+
+if(checkboxes[i].type==="checkbox"&&checkboxes[i].checked===true){
+selectedServices=selectedServices+checkboxes[i].value+", ";
+}
+}
+
+if(selectedServices===""){
+
+let msg=document.getElementById("bookingMsg");
+
+msg.innerText="⚠️ Please select at least one service.";
+
+msg.style.color="red";
+
+return;
+}
+
+localStorage.setItem("bookingSalon",salonName);
+
+localStorage.setItem("bookingServices",selectedServices);
+
+location.href="book.html";
+}
+</script>
+
+</body>
+</html>

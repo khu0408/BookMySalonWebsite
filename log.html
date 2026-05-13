@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BookMySalon - Login</title>
+<style>
+
+   *{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+body{
+font-family:Arial,sans-serif;
+overflow-x:hidden;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+background-image:linear-gradient(rgba(255,248,240,0.85),rgba(255,248,240,0.85)),url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600');
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+background-repeat:no-repeat;
+}
+
+header{
+width:100%;
+background-color:#000;
+padding:14px 20px;
+text-align:center;
+}
+
+header .home-btn{
+background-color:white;
+color:black;
+border:none;
+padding:10px 20px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer;
+border-radius:5px;
+font-family:Arial,sans-serif;
+transition:background-color 0.3s;
+}
+
+header .home-btn:hover{
+background-color:#ddd;
+}
+
+.login-container{
+display:flex;
+justify-content:center;
+padding:40px 20px 60px;
+flex:1;
+}
+
+.form-box{
+background:white;
+border-radius:10px;
+padding:40px 35px;
+width:100%;
+max-width:450px;
+box-shadow:0 4px 20px rgba(0,0,0,0.2);
+height:fit-content;
+}
+
+h1{
+font-size:28px;
+font-weight:bold;
+color:#333;
+margin-bottom:8px;
+cursor:default;
+}
+
+.subtitle{
+font-size:15px;
+color:#555;
+font-weight:bold;
+margin-bottom:25px;
+}
+
+.user-type-selector{
+display:flex;
+gap:10px;
+margin-bottom:25px;
+background:#f5f5f5;
+padding:5px;
+border-radius:8px;
+}
+
+.user-type-btn{
+flex:1;
+padding:12px;
+background:transparent;
+border:none;
+border-radius:6px;
+font-size:15px;
+font-weight:bold;
+color:#555;
+cursor:pointer;
+transition:all 0.3s;
+font-family:Arial,sans-serif;
+}
+
+.user-type-btn.active{
+background-color:#000;
+color:white;
+box-shadow:0 2px 8px rgba(0,0,0,0.2);
+}
+
+.user-type-btn:hover:not(.active){
+background-color:#e0e0e0;
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+.form-group label{
+display:block;
+font-weight:bold;
+margin-bottom:6px;
+color:#333;
+font-size:15px;
+}
+
+.form-group input{
+width:100%;
+padding:10px 14px;
+border:1.5px solid #ccc;
+border-radius:8px;
+font-size:15px;
+font-family:Arial,sans-serif;
+transition:border 0.2s;
+}
+
+.form-group input:focus{
+outline:none;
+border-color:#000;
+}
+
+.error-msg{
+color:#d9534f;
+font-size:13px;
+margin-top:5px;
+display:none;
+}
+
+.input-error{
+border-color:#d9534f!important;
+}
+
+.password-box{
+position:relative;
+}
+
+.toggle-password{
+position:absolute;
+top:50%;
+right:10px;
+transform:translateY(-50%);
+background:none;
+border:none;
+cursor:pointer;
+font-size:18px;
+color:#555;
+padding:0;
+}
+
+button.login-main-btn{
+background-color:#000;
+color:white;
+border:none;
+padding:15px 30px;
+font-size:18px;
+cursor:pointer;
+border-radius:8px;
+transition:background-color 0.3s,box-shadow 0.3s;
+width:100%;
+margin-top:8px;
+}
+
+button.login-main-btn:hover,
+button.login-main-btn:focus{
+background-color:#aaa;
+outline:none;
+box-shadow:0 0 5px #333;
+}
+
+.register-link{
+text-align:center;
+margin-top:16px;
+font-size:14px;
+color:#555;
+}
+
+.register-link a{
+color:#000;
+font-weight:bold;
+text-decoration:none;
+}
+
+.register-link a:hover{
+text-decoration:underline;
+}
+
+.success-msg{
+color:#28a745;
+font-size:14px;
+text-align:center;
+margin-top:12px;
+font-weight:bold;
+display:none;
+}
+
+footer{
+color:#fff;
+background-color:rgba(0,0,0,0.7);
+padding:20px 0;
+text-align:center;
+}
+
+footer a{
+color:#f8c471;
+text-decoration:none;
+font-weight:bold;
+}
+
+footer a:hover{
+text-decoration:underline;
+}
+
+footer .contact p,
+footer .copyright p{
+margin:5px 0;
+font-size:16px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<nav>
+<button class="home-btn" onclick="location.href='home.html'">
+Back to Home
+</button>
+</nav>
+</header>
+
+<main>
+
+<section class="login-container">
+
+<form class="form-box">
+
+<h1>Welcome Back!</h1>
+
+<p class="subtitle">Login to your account</p>
+
+<nav class="user-type-selector">
+
+<button type="button" class="user-type-btn active" id="userTypeBtn" onclick="selectUserType('user')">
+👤 User
+</button>
+
+<button type="button" class="user-type-btn" id="businessTypeBtn" onclick="selectUserType('business')">
+🏢 Business
+</button>
+
+</nav>
+
+<section class="form-group" id="businessNameGroup" style="display:none;">
+
+<label for="businessName">Business Name</label>
+
+<input type="text" id="businessName" placeholder="Enter your business name">
+
+<p class="error-msg" id="businessNameError"></p>
+
+</section>
+
+<section class="form-group">
+
+<label for="email" id="emailLabel">Email</label>
+
+<input type="email" id="email" placeholder="Enter your email">
+
+<p class="error-msg" id="emailError"></p>
+
+</section>
+
+<section class="form-group">
+
+<label for="password" id="passwordLabel">Password</label>
+
+<section class="password-box">
+
+<input type="password" id="password" placeholder="Enter your password">
+
+<button type="button" class="toggle-password" onclick="togglePassword()">
+<span id="eyeIcon">🫣</span>
+</button>
+
+</section>
+
+<p class="error-msg" id="passwordError"></p>
+
+</section>
+
+<button type="button" class="login-main-btn" onclick="login()">
+Login
+</button>
+
+<p class="success-msg" id="successMsg"></p>
+
+<p class="register-link">
+Don't have an account?
+<a href="register.html">Register here</a>
+</p>
+
+</form>
+
+</section>
+
+</main>
+
+<footer>
+
+<section class="contact">
+
+<p>
+Contact us on WhatsApp:
+<a href="https://wa.me/966580417226" target="_blank">
++966 58 041 7226
+</a>
+</p>
+
+</section>
+
+<section class="copyright">
+
+<p>&copy; 2026 BookMySalon. All rights reserved.</p>
+
+</section>
+
+</footer>
+
+<script>
+let selectedUserType = "user";
+
+function selectUserType(type) {
+    selectedUserType = type;
+    let userBtn = document.getElementById("userTypeBtn");
+    let businessBtn = document.getElementById("businessTypeBtn");
+
+    if (type === "user") {
+        userBtn.className = "user-type-btn active";
+        businessBtn.className = "user-type-btn";
+        document.getElementById("businessNameGroup").style.display = "none";
+        document.getElementById("emailLabel").innerText = "Email";
+        document.getElementById("email").placeholder = "Enter your email";
+        document.getElementById("passwordLabel").innerText = "Password";
+        document.getElementById("password").placeholder = "Enter your password";
+    } else {
+        userBtn.className = "user-type-btn";
+        businessBtn.className = "user-type-btn active";
+        document.getElementById("businessNameGroup").style.display = "block";
+        document.getElementById("emailLabel").innerText = "Business Email";
+        document.getElementById("email").placeholder = "Enter your business email";
+        document.getElementById("passwordLabel").innerText = "Business Password";
+        document.getElementById("password").placeholder = "Enter your business password";
+    }
+    clearErrors();
+}
+
+function togglePassword() {
+    let passwordInput = document.getElementById("password");
+    let eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.textContent = "👁️";
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.textContent = "🫣";
+    }
+}
+
+function showError(inputId, errorId, message) {
+    document.getElementById(inputId).className = "input-error";
+    let errorElement = document.getElementById(errorId);
+    errorElement.textContent = message;
+    errorElement.style.display = "block";
+}
+
+function clearErrors() {
+    document.getElementById("email").className = "";
+    document.getElementById("password").className = "";
+    document.getElementById("emailError").style.display = "none";
+    document.getElementById("passwordError").style.display = "none";
+    document.getElementById("successMsg").style.display = "none";
+}
+
+function login() {
+    clearErrors();
+
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    let isValid = true;
+
+    if (email === "") {
+        showError("email", "emailError", "⚠️ This field is empty.");
+        isValid = false;
+    }
+    else if (!email.includes('@') || !email.includes('.')) {
+        showError("email", "emailError","⚠️ Invalid email format.");
+        isValid = false;
+    }
+
+    if (password === "") {
+        showError("password", "passwordError", "⚠️ This field is empty.");
+        isValid = false;
+    }
+
+    if (isValid === false) {
+        return;
+    }
+
+    let storageKey;
+    if (selectedUserType === "business") {
+        storageKey = "business_" + email;
+    } else {
+        storageKey = "user_" + email;
+    }
+
+    let storedUser = localStorage.getItem(storageKey);
+
+    if (storedUser === null) {
+        if (selectedUserType === "business") {
+            showError("email", "emailError", "⚠️ No business account found with this email");
+        } else {
+            showError("email", "emailError", "⚠️ Incorrect email");
+        }
+        return;
+    }
+
+    let user = JSON.parse(storedUser);
+
+    if (user.password !== password) {
+        showError("password", "passwordError", "⚠️ Incorrect password");
+        return;
+    }
+
+    localStorage.setItem("loggedInUser", user.name);
+    localStorage.setItem("loggedInUserType", selectedUserType);
+
+    let successMsg = document.getElementById("successMsg");
+    successMsg.textContent = `✅ Welcome back, ${user.name}!`;
+    successMsg.style.display = "block";
+
+    setTimeout(function() {
+        if (selectedUserType === "business") {
+            location.href = "business_dashboard.html";
+        } else {
+            location.href = "home.html";
+        }
+    }, 1500);
+}
+
+document.getElementById('email').oninput = function(){
+    let email = this.value;
+    if (email === "") {
+        showError("email", "emailError", "⚠️ This field is empty.");
+    }
+    else if (!email.includes('@') || !email.includes('.')) {
+        showError("email", "emailError","⚠️ Invalid email format.");
+    }
+    else {
+        document.getElementById('emailError').style.display = 'none';
+        document.getElementById('email').className = '';
+    }
+};
+
+document.getElementById('password').oninput = function(){
+    let password = this.value;
+    if (password === "") {
+        showError("password", "passwordError", "⚠️ This field is empty.");
+    }
+    else {
+        document.getElementById('passwordError').style.display = 'none';
+        document.getElementById('password').classList.remove('input-error');
+    }
+};
+</script>
+</body>
+</html>
