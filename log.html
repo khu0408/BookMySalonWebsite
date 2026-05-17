@@ -409,6 +409,8 @@ function login() {
     let password = document.getElementById("password").value;
 
     let isValid = true;
+    
+    
 
     if (email === "") {
         showError("email", "emailError", "⚠️ This field is empty.");
@@ -462,7 +464,7 @@ function login() {
 
     setTimeout(function() {
         if (selectedUserType === "business") {
-            location.href = "business_dashboard.html";
+            location.href = "home.html";
         } else {
             location.href = "home.html";
         }
